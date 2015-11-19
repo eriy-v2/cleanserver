@@ -7,54 +7,21 @@ var signature = require('cookie-signature');
 
 function indexRoute(app) {
     "use strict";
-    /*app.use(function (req, res, next) {
-        var sessionID = req.query.sessionID;
 
-        if (!sessionID) {
-            return next();
-        }
-
-        req.sessionStore.load(sessionID, function(err, sess) {
-            console.log(sess);
-            next()
+    /*app.use('/', function (req, res) {
+        res.status(200).send({
+            message: 'Express Welcome'
         });
-
-
-
-        /!*req.sessionStore.get(sessionID, function (err, session) {
-            if (err) {
-                return next(err);
-            }
-
-            if (!session) {
-                err        = new Error('unAuthorized');
-                err.status = 403;
-
-                return next();
-            }
-            console.log(session);
-            req.sessionID = sessionID;
-            req.sessionStore.
-            next();
-        })*!/
-
     });*/
 
-    app.get('/', function (req, res) {
-        res.status(200).send({
-            message: 'Express Welcome',
-            user:    req.session.uId
-        });
-    });
-
-    app.get('/sigUp/:user', function (req, res, next) {
+    /*app.get('/sigUp/:user', function (req, res, next) {
         req.session.uId = req.params.user;
         req.session.save();
 
         res.status(200).send({
             sessionID: cookie.serialize( 'server.sid', 's:' + signature.sign( req.sessionID, 'super hyper secret string' ) )
         })
-    });
+    });*/
 
     function errorHandler(err, req, res, next) {
         var message;
@@ -71,7 +38,7 @@ function indexRoute(app) {
             error: message
         };
 
-        if (process.env !== 'production') {
+        if (process.env === 'development') {
             resObject.stack = err.stack;
         }
 
